@@ -23,13 +23,35 @@ def calcular_ganho_informacao(conjunto_total, subconjuntos):
     ganho_informacao = entropia_total - entropia_subconjuntos
     return ganho_informacao
 
+def melhor_atributo(conjunto_total, todos_subconjuntos):
+    melhor_ganho = -1
+    melhor_atributo = None
+    
+    for atributo, subconjuntos in todos_subconjuntos.items():
+        ganho_informacao = calcular_ganho_informacao(conjunto_total, subconjuntos)
+        print(f"Ganho de informação para {atributo}: {ganho_informacao}")
+        if ganho_informacao > melhor_ganho:
+            melhor_ganho = ganho_informacao
+            melhor_atributo = atributo
+    
+    return melhor_atributo
+
 # Exemplo de uso
 conjunto_total = [10, 4, 6]  # 10 exemplos da classe A, 4 da classe B e 6 da classe C
-subconjuntos = [
-    [6, 2, 2],  # Subconjunto para atributo = Categoria 1
-    [2, 2, 2],  # Subconjunto para atributo = Categoria 2
-    [2, 0, 2]   # Subconjunto para atributo = Categoria 3
-]
+todos_subconjuntos = {
+    "Atributo1": [
+        [6, 2, 2],  # Subconjunto para atributo = Categoria 1
+        [2, 2, 2],  # Subconjunto para atributo = Categoria 2
+        [2, 0, 2]   # Subconjunto para atributo = Categoria 3
+    ],
+    "Atributo2": [
+        [4, 2, 4],  # Subconjunto para atributo = Categoria 1
+        [4, 0, 2],  # Subconjunto para atributo = Categoria 2
+        [2, 2, 0]   # Subconjunto para atributo = Categoria 3
+    ]
+}
+melhor_atributo_selecionado = melhor_atributo(conjunto_total, todos_subconjuntos)
+print(f"O melhor atributo é: {melhor_atributo_selecionado}")
 
-ganho_informacao = calcular_ganho_informacao(conjunto_total, subconjuntos)
-print(ganho_informacao)
+#ganho_informacao = calcular_ganho_informacao(conjunto_total, subconjuntos)
+#print(ganho_informacao)
